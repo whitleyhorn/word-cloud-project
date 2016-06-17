@@ -24,13 +24,13 @@
                   <span class="input-group-btn">
                     <button class="btn btn-default" id='btn1' type="button">The Guardian API</button>
                   </span>
-                  <input type="text" class="form-control" placeholder="Search for..." id='search01'>
+                  <input type="text" class="form-control"  id="input1" placeholder="Search for..." id='search01'>
                 </div><!-- /input-group -->
               </div><!-- /.col-lg-6 -->
 
               <div class="col-lg-6">
                 <div class="input-group">
-                  <input type="text" class="form-control" placeholder="Search for...">
+                  <input type="text" class="form-control" id="input2" placeholder="Search for...">
                   <span class="input-group-btn">
                     <button class="btn btn-default" id='btn2' type="button">The NY Times API</button>
                   </span>
@@ -69,14 +69,14 @@
 
 
 $( document ).ready(function() {
-    console.log( "ready!" );
+    //console.log( "ready!" );
     //console.log("search01" + #search01);
 
 
     $('#btn1').on('click', function() {
  
-        var btn1Input = $('#btn1').val().trim();
-        console.log("btn1Input=" + btn1Input);
+        var input1Val = $('#input1').val().trim();
+        //console.log("input1Val=" + input1Val);
 
          
         //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
@@ -84,7 +84,7 @@ $( document ).ready(function() {
 
         //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
 
-        var url = ("https://content.guardianapis.com/search?q=" + btn1Input + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+        var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
         console.log("url=" + url);
         
         var anArray = [];  
@@ -97,7 +97,7 @@ $( document ).ready(function() {
             })
             .done(function(response) {   
 
-                //console.log(response.response);
+                console.log(response.response);
 
                 for (var i = 0; i < response.response.results.length; i++) {
                    var webTitle = response.response.results[i].webTitle;
@@ -116,6 +116,7 @@ $( document ).ready(function() {
 
      $('#btn2').on('click', function() {
 
+      var input2Val = $('#input2').val().trim();
          
         //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
         //var url = "https://content.guardianapis.com/search?q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
@@ -125,8 +126,11 @@ $( document ).ready(function() {
         var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
             url += '?' + $.param({
             'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
-             'q': "\"hillary clinton\""
+            'q': input2Val
+            //'q': "\"hillary clinton\""
          });
+
+        console.log("url=" + url);    
         
         var anArray = [];  
      
