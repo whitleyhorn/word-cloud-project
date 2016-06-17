@@ -46,8 +46,8 @@ $(document).ready(function() {
 
       console.log(response);
 
-      for (var i = 0; i < 7; i++) {
-        var snippet = response.response.docs[i].snippet;
+      for (var i = 0; i < response.response.docs.length; i++) {
+        var snippet = response.response.docs[i].headline.main;
         anArray.push(snippet + " | ");
         $('#guardianDiv2').append(snippet + '<br>');
       }
