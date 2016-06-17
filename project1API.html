@@ -68,99 +68,71 @@
     <script type="text/javascript">
 
 
-$( document ).ready(function() {
-    //console.log( "ready!" );
-    //console.log("search01" + #search01);
+$(document).ready(function() {
 
+  $('#btn1').on('click', function() {
+    var input1Val = $('#input1').val().trim();
 
-    $('#btn1').on('click', function() {
- 
-        var input1Val = $('#input1').val().trim();
-        //console.log("input1Val=" + input1Val);
+    var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+    console.log("url=" + url);
+    
+    var anArray = [];
 
-         
-        //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
-        //var url = "https://content.guardianapis.com/search?q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+    $.ajax({
+      url: url,
+      method: 'GET'
+    })
+    .done(function(response) {
 
-        //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+      console.log(response.response);
 
-        var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
-        console.log("url=" + url);
-        
-        var anArray = [];  
+      for (var i = 0; i < response.response.results.length; i++) {
+        var webTitle = response.response.results[i].webTitle;
+        anArray.push(webTitle + " | ");
+        $('#guardianDiv1').append(webTitle + '<br>');
+      }
 
-     
-
-        $.ajax({
-                url: url,
-                method: 'GET'
-            })
-            .done(function(response) {   
-
-                console.log(response.response);
-
-                for (var i = 0; i < response.response.results.length; i++) {
-                   var webTitle = response.response.results[i].webTitle;
-                    //console.log("webTitle=" + webTitle);
-
-                    anArray.push(  webTitle + " | ");
-                    $('#guardianDiv1').append(webTitle + '<br>');
-                   // $('#guardianDiv2').append(webTitle + '<br>');
-                }
-
-                console.log('anArray=' + anArray);
-                 
-
-            });
+      console.log('anArray=' + anArray);
+    });
     });
 
-     $('#btn2').on('click', function() {
+  $('#btn2').on('click', function() {
 
-      var input2Val = $('#input2').val().trim();
-         
-        //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
-        //var url = "https://content.guardianapis.com/search?q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
-        //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+    var input2Val = $('#input2').val().trim();
 
-         // Built by LucyBot. www.lucybot.com
-        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-            url += '?' + $.param({
-            'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
-            'q': input2Val
-            //'q': "\"hillary clinton\""
-         });
+    // Built by LucyBot. www.lucybot.com
+    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+      url += '?' + $.param({
+      'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
+      'q': input2Val
+      });
 
-        console.log("url=" + url);    
-        
-        var anArray = [];  
+      console.log("url=" + url);
+
+      var anArray = [];
      
 
-        $.ajax({
-                url: url,
-                method: 'GET'
-            })
-            .done(function(response) {   
+      $.ajax({
+        url: url,
+        method: 'GET'
+      })
+      .done(function(response) {
 
-                console.log(response);
+      console.log(response);
 
-                for (var i = 0; i < response.response.docs.length; i++) {
-                   var snippet = response.response.docs[i].snippet;
-                    //console.log("snippet=" + snippet);
+      for (var i = 0; i < response.response.docs.length; i++) {
+        var snippet = response.response.docs[i].snippet;
 
-                    anArray.push(  snippet + " | ");
-                    
-                   $('#guardianDiv2').append(snippet + '<br>');
-                }
+        anArray.push(snippet + " | ");
+        $('#guardianDiv2').append(snippet + '<br>');
+      }
 
-                console.log('anArray=' + anArray);
-                 
+      console.log('anArray=' + anArray);
+  });
+  });
+});
 
-            });
-    });
-
-
-});  // on ready
-    </script>
+</script>
 </body>
 
 </html>

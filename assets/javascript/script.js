@@ -1,3 +1,64 @@
+// API
+$(document).ready(function() {
+
+  $('#btn1').on('click', function() {
+    var input1Val = $('#input1').val().trim();
+    var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+    
+    var anArray = [];
+
+    $.ajax({
+      url: url,
+      method: 'GET'
+    })
+    .done(function(response) {
+
+      console.log(response);
+
+      for (var i = 0; i < response.response.results.length; i++) {
+        var webTitle = response.response.results[i].webTitle;
+        anArray.push(webTitle + " | ");
+        $('#guardianDiv1').append(webTitle + '<br>');
+      }
+    });
+  });
+
+  $('#btn2').on('click', function() {
+
+    var input2Val = $('#input2').val().trim();
+
+    // Built by LucyBot. www.lucybot.com
+    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+    url += '?' + $.param({
+    'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
+    'q': input2Val
+    });
+
+    console.log("url=" + url);
+
+    var anArray = [];
+
+    $.ajax({
+      url: url,
+      method: 'GET'
+    })
+    .done(function(response) {
+
+      console.log(response);
+
+      for (var i = 0; i < 7; i++) {
+        var snippet = response.response.docs[i].snippet;
+        anArray.push(snippet + " | ");
+        $('#guardianDiv2').append(snippet + '<br>');
+      }
+    });
+  });
+});
+
+
+
+
+// WORD CLOUD
 var skipWords = ['the','of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they','I','at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part'];
 
 function unique(list) {
@@ -48,7 +109,6 @@ var article2 = "President Barack Obama lit into Donald Trump Tuesday, turning th
 
 var dupeArr2 = wordCount(article2);
 var finalArticle2 = unique(dupeArr2);
-
 
 
 WordCloud(document.getElementById('canvas1'), { list: finalArticle1 } );
