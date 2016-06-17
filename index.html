@@ -25,26 +25,38 @@
     <div class="col-lg-6">
       <div class="input-group">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Go!</button>
+          <button class="btn btn-default" id='btn1' type="button">The Guardian API</button>
         </span>
-        <input type="text" class="form-control" placeholder="Search The BBC for...">
-      </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
+        <input type="text" class="form-control" id="input1" placeholder="Search for..." id='search01'>
+      </div>
+    </div>
+
     <div class="col-lg-6">
       <div class="input-group">
-        <input type="text" class="form-control" placeholder="Search The Guardian for...">
+        <input type="text" class="form-control" id="input2" placeholder="Search for...">
         <span class="input-group-btn">
-          <button class="btn btn-default" type="button">Go!</button>
+          <button class="btn btn-default" id='btn2' type="button">The NY Times API</button>
         </span>
-      </div><!-- /input-group -->
-    </div><!-- /.col-lg-6 -->
-  </div><!-- /.row -->
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 col-xs-6">
+        <div id="guardianDiv1" class="hide"></div>
+    </div>
+
+    <div class=".col-md-6 col-xs-6">
+        <div id="guardianDiv2" class="hide"></div>
+    </div>
+  </div>
+
   <div class="row">
     <div class="col-md-6">
-      <canvas id="canvas1" class="canvas" width="500px" height="500px"></canvas>
+      <canvas id="canvas1" class="canvas hide" width="500px" height="500px"></canvas>
     </div>
     <div class="col-md-6">
-      <canvas id="canvas2" class="canvas" width="500px" height="500px"></canvas>
+      <canvas id="canvas2" class="canvas hide" width="500px" height="500px"></canvas>
     </div>
   </div>
 </div>

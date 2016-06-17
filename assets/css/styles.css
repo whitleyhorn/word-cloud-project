@@ -9,7 +9,7 @@ body {
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  color: red;
+  color: black;
 }
 
 .GeneratedMarquee {
@@ -49,4 +49,15 @@ body {
   margin: 1em;
 }
 
+#guardianDiv1, #guardianDiv2 {
+  background-color: white;
+  height: 32em;
+}
 
+#guardianDiv1 p, #guardianDiv2 p {
+  margin: 5px 0 0 10px
+}
+
+.hide {
+  display: none;
+}
