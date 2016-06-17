@@ -51,5 +51,9 @@ body {
 
 #guardianDiv1, #guardianDiv2 {
   background-color: white;
-  height: 25em;
+  height: 32em;
+}
+
+#guardianDiv1 p, #guardianDiv2 p {
+  margin: 5px 0 0 10px
 }

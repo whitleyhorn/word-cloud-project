@@ -18,7 +18,7 @@ $(document).ready(function() {
       for (var i = 0; i < response.response.results.length; i++) {
         var webTitle = response.response.results[i].webTitle;
         anArray.push(webTitle + " | ");
-        $('#guardianDiv1').append(webTitle + '<br>');
+        $('#guardianDiv1').append('<p>' + webTitle + '</p><br>');
       }
     });
   });
@@ -49,7 +49,7 @@ $(document).ready(function() {
       for (var i = 0; i < response.response.docs.length; i++) {
         var snippet = response.response.docs[i].headline.main;
         anArray.push(snippet + " | ");
-        $('#guardianDiv2').append(snippet + '<br>');
+        $('#guardianDiv2').append('<p>' + snippet + '</p><br>');
       }
     });
   });
