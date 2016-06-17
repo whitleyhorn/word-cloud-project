@@ -1,0 +1,52 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: url(bg.png) no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  color: red;
+}
+
+.GeneratedMarquee {
+  font-family: 'Times New Roman', serif;
+  font-size: 40px;
+  line-height: 1.3em;
+  color: red;
+  background-color: white;
+  padding: 1.5em;
+}
+
+#sourceOne {
+	border-color: red;
+}
+
+.introDiv {
+  background-color: grey;
+}
+
+.introDiv h1, h2 {
+  font-family: 'Times New Roman';
+  color: white;
+}
+
+#page-wrap {
+  position: relative;
+  width: 400px;
+  margin: 50px auto;
+  padding: 20px;
+  background: white;
+  -moz-box-shadow: 0 0 20px black;
+  -webkit-box-shadow: 0 0 20px black;
+  box-shadow: 0 0 20px black;
+}
+
+.canvas {
+  margin: 1em;
+}
+
+

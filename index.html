@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<title>RBC_Project_One_Group9</title>
+  <!-- Bootstrap -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="styles.css">
+</head>
+
+<body>
+
+<div class="container">
+  <jumbotron>
+    <marquee class="GeneratedMarquee" direction="left" scrollamount="21" behavior="scroll">Scrolling text...</marquee>
+  </jumbotron>
+
+  <div class="introDiv">
+    <h1 align="center">And Now This...</h1>
+    <h2 align="center">Trending News Word Clouds</h2>
+    <h2 align="center">Type in a phrase or word trending in the news to see how different news outlets cover the same event.</h2>
+  </div>
+  <div class="row">
+    <div class="col-lg-6">
+      <div class="input-group">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Go!</button>
+        </span>
+        <input type="text" class="form-control" placeholder="Search The BBC for...">
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+    <div class="col-lg-6">
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="Search The Guardian for...">
+        <span class="input-group-btn">
+          <button class="btn btn-default" type="button">Go!</button>
+        </span>
+      </div><!-- /input-group -->
+    </div><!-- /.col-lg-6 -->
+  </div><!-- /.row -->
+  <div class="row">
+    <div class="col-md-6">
+      <canvas id="canvas1" class="canvas" width="500px" height="500px"></canvas>
+    </div>
+    <div class="col-md-6">
+      <canvas id="canvas2" class="canvas" width="500px" height="500px"></canvas>
+    </div>
+  </div>
+</div>
+
+<script type="text/javascript" src="https://code.jquery.com/jquery-3.0.0.min.js"></script>
+<script src="wordcloud2.js-gh-pages/src/wordcloud2.js"></script>
+<script type="text/javascript" src="script.js"></script>
+
+</body>
+
+</html>
