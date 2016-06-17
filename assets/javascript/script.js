@@ -12,13 +12,15 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
+      $('#guardianDiv1').removeClass('hide');
 
       console.log(response);
 
-      for (var i = 0; i < response.response.results.length; i++) {
-        var webTitle = response.response.results[i].webTitle;
-        anArray.push(webTitle + " | ");
-        $('#guardianDiv1').append('<p>' + webTitle + '</p><br>');
+      for (var i = 0; i < 9; i++) {
+        var guardianSnippet = response.response.results[i].webTitle;
+        var link = response.response.results[i].webUrl;
+        anArray.push(guardianSnippet + " | ");
+        $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + guardianSnippet + '</p><br>');
       }
     });
   });
@@ -43,13 +45,14 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
-
+      $('#guardianDiv2').removeClass('hide');
       console.log(response);
 
       for (var i = 0; i < response.response.docs.length; i++) {
-        var snippet = response.response.docs[i].headline.main;
-        anArray.push(snippet + " | ");
-        $('#guardianDiv2').append('<p>' + snippet + '</p><br>');
+        var nytSnippet = response.response.docs[i].headline.main;
+        var link = response.response.docs[i].web_url;
+        anArray.push(nytSnippet + " | ");
+        $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + nytSnippet + '</p><br>');
       }
     });
   });
@@ -59,7 +62,7 @@ $(document).ready(function() {
 
 
 // WORD CLOUD
-var skipWords = ['the','of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they','I','at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part'];
+var skipWords = ['the','of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they','I','at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part', 'href', '<p>', '</p>', '<a'];
 
 function unique(list) {
   var result = [];
@@ -81,8 +84,8 @@ function wordCount(s) {
         xCount++;
       };
     };
-    if (skipWords.indexOf(x) < 0) {
-      countArray.push([x, xCount * 20]);
+    if (skipWords.indexOf(x) < 0 && x.length < 12 && x.indexOf('&') < 0 && x.indexOf('"') < 0 && x.indexOf('<') < 0 && x.indexOf('>') < 0) {
+      countArray.push([x, xCount * 10]);
     };
   };
   
@@ -99,17 +102,43 @@ function wordCount(s) {
 }
 
 
-var article1 = "President Obama angrily denounced Donald J. Trump on Tuesday for his remarks in the aftermath of the shooting massacre in Orlando, Fla., warning that Mr. Trump, the presumptive Republican presidential nominee, was peddling a “dangerous” mind-set that recalled the darkest and most shameful periods in American history. 'We hear language that singles out immigrants and suggests entire religious communities are complicit in violence,' Mr. Obama said at the Treasury Department, without mentioning Mr. Trump by name. His statement, an extraordinary condemnation by a sitting president of a man who is to be the opposing party’s nominee for the White House, came after Mr. Obama met with his national security team on the status of the American effort against the Islamic State, a meeting that the president said had been dominated by discussion of the Orlando rampage."
-
-// Create word count array for article, then remove duplicate words
-var dupeArr1 = wordCount(article1);
-var finalArticle1 = unique(dupeArr1);
-
-var article2 = "President Barack Obama lit into Donald Trump Tuesday, turning the tables to make the impassioned case that Trump is the one who's un-American. Obama's extraordinary denunciation of the presumptive Republican presidential nominee was about far more than a personal intervention on behalf of Hillary Clinton in the ugly general election campaign. The commander in chief's fury, which seethed out of him in a stunning soliloquy on live television, amounted to a moment of historic significance: a president castigating one of the two people who could succeed him as beyond the constitutional and political norms of the nation itself."
-
-var dupeArr2 = wordCount(article2);
-var finalArticle2 = unique(dupeArr2);
+  // Guardian headline on click
+  var guardianArticleURL = '';
+  var article1 = '';
 
 
-WordCloud(document.getElementById('canvas1'), { list: finalArticle1 } );
-WordCloud(document.getElementById('canvas2'), { list: finalArticle2 } );
+  $(document).on('click', '#guardianSnippet', function() {
+    guardianArticleURL = $(this).attr('data-alt');
+    $.getJSON('https://api.embedly.com/1/extract?' + $.param({
+      url: guardianArticleURL,
+      key: 'aa992939d6f74f4090e6ea8d7dac9d1b'
+    }))
+    .done(function(response) {
+      article1 = response.content;
+      var dupeArr1 = wordCount(article1);
+      var finalArticle1 = unique(dupeArr1);
+      WordCloud(document.getElementById('canvas1'), { list: finalArticle1 } );
+      $('#canvas1').removeClass('hide');
+    });
+  });
+  
+
+  // NY Times headline on click
+  var nytArticleURL = '';
+  var article2 = '';
+
+
+  $(document).on('click', '#nytSnippet', function() {
+    nytArticleURL = $(this).attr('data-alt');
+    $.getJSON('https://api.embedly.com/1/extract?' + $.param({
+      url: nytArticleURL,
+      key: 'aa992939d6f74f4090e6ea8d7dac9d1b'
+    }))
+    .done(function(response) {
+      article2 = response.content;
+      var dupeArr2 = wordCount(article2);
+      var finalArticle2 = unique(dupeArr2);
+      WordCloud(document.getElementById('canvas2'), { list: finalArticle2 } );
+      $('#canvas2').removeClass('hide');
+    });
+  });

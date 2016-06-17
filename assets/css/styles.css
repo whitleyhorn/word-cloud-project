@@ -57,3 +57,7 @@ body {
 #guardianDiv1 p, #guardianDiv2 p {
   margin: 5px 0 0 10px
 }
+
+.hide {
+  display: none;
+}
