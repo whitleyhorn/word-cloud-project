@@ -1,9 +1,29 @@
 // API
 $(document).ready(function() {
+  var fromDate = "";
 
   $('#btn1').on('click', function() {
+    fromDate = $('#fromDate').val().trim();
+    if(fromDate == "") {
+      fromDate = "2013-01-01";
+    }
     var input1Val = $('#input1').val().trim();
-    var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+    if(input1Val == "") {
+      var state = $(this).attr('data-noInput1');
+      if (state == 'on' ) {
+        $(this).attr('data-noInput1', 'off');
+        $('#guardianDiv1').append('<br>');
+      } else {
+        $(this).attr('data-noInput1', 'on');
+        $('#guardianDiv1').append('No search criteria entered for The Guardian !!!' + '<br>');
+      };
+      return;
+    }
+
+    $('#input1').val('');
+    $('#guardianDiv1').append('Searching ...' + '<br>');
+
+    var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=" + fromDate + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
     
     var anArray = [];
 
@@ -12,6 +32,7 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
+      $( "#guardianDiv1" ).empty();
       $('#guardianDiv1').removeClass('hide');
 
       console.log(response);
@@ -29,6 +50,21 @@ $(document).ready(function() {
 
     var input2Val = $('#input2').val().trim();
 
+    if(input2Val == "") {
+      var state = $(this).attr('data-noInput2');
+      if (state == 'on' ) {
+        $(this).attr('data-noInput2', 'off');
+        $('#guardianDiv2').append('<br>');
+      } else {
+        $(this).attr('data-noInput2', 'on');
+        $('#guardianDiv2').append('No search criteria entered for The NY Times !!!' + '<br>');
+      };
+      return;
+    }
+
+    $('#input2').val('');
+    $('#guardianDiv2').append('Searching ...' + '<br>');
+
     // Built by LucyBot. www.lucybot.com
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
@@ -45,6 +81,7 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
+      $('#guardianDiv2').empty();
       $('#guardianDiv2').removeClass('hide');
       console.log(response);
 
