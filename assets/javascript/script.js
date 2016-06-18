@@ -45,9 +45,7 @@ var theGuardian = function() {
 
 var nyTimes = function() {
 fromDate = $('#fromDate').val().trim();
-alert("fromDate=" + fromDate);
 fromDate = fromDate.replace(/-/g,"");
-alert("fromDate=" + fromDate);
 if (fromDate == "") {
   fromDate = "20130101";
 }
