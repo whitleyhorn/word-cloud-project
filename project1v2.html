@@ -1,0 +1,286 @@
+<html>
+<!-- tk 2016 06 16 - copyright Thom. Keel 2016 - project1 - test api'sfs 
+http://digitalbush.com/projects/masked-input-plugin/ 
+https://raw.githubusercontent.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js
+2016 06 16 - add date input field
+-->
+
+<head>
+    <title>The Guardian/NY Times API</title>
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+    <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+   
+    <style type="text/css">
+        
+    </style>
+
+</head>
+
+<body>
+
+    <div class="jumbotron">
+        <div class="container text-center">
+            <h1>Project 01 - Test API's!</h1>
+
+            <!-- <div class="col-lg-12  col-md-12 text-center">&copy; Thom Keel 2016</div> -->
+ 
+      
+            <div class="row">
+              <div class="col-lg-6 col-md-6">
+                <div class="input-group">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default btn-info" id='btn1' type="button">The Guardian API</button>
+                  </span>
+                  <input type="text" class="form-control"  id="input1" placeholder="Search for..." >
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+
+              <div class="col-lg-6  col-md-6">
+                <div class="input-group">
+                  <input type="text" class="form-control" id="input2" placeholder="Search for...">
+                  <span class="input-group-btn">
+                    <button class="btn btn-default btn-info" id='btn2' type="button">The NY Times API</button>
+                  </span>
+                </div><!-- /input-group -->
+              </div><!-- /.col-lg-6 -->
+            </div><!-- /.row -->
+
+
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5">
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+                <form>
+                    <div class="form-group">
+                     Search from date: 
+                            <input type="date" class="form-control" id="fromDate" value="2012-01-01" placeholder="From Date(YYYYMMDD) ...">
+                    </label>
+                    </div>
+                </form>
+            </div><!-- /.col-lg-2 -->
+
+            <div class="col-lg-4   col-md-4">
+            </div><!-- /.col-lg-5 -->
+        </div><!-- /.row -->
+
+
+
+        </div>
+    </div>    
+ 
+
+        
+    
+
+    <div class="container-fluid">
+        <div class="row">
+
+            <div class=".col-md-6 col-xs-6 text-justify">
+                <div id="TheGuardianDiv1" data-noInput1='off'>   </div>
+            </div>
+
+            <div class=".col-md-6 col-xs-6 text-justify">
+                <div id="NYTimesDiv2" data-noInput2='off'>   </div>
+            </div>
+          
+        </div>
+    </div>
+
+
+   
+
+    <script type="text/javascript">
+
+
+$( document ).ready(function() {
+    //console.log( "ready!" );
+    //console.log("Date01" + #search01);
+
+     var fromDate = "";
+     var input1Val = "";
+     var input2Val = "";
+
+
+    $('#btn1').on('click', function() {
+      theGuardian();   
+      nyTimes();   
+    });
+
+     $('#btn2').on('click', function() {
+        nyTimes();
+    });
+
+
+// -----------------------------------------------------------------------------------------------
+    function theGuardian(){
+        $( "#TheGuardianDiv1" ).empty();
+
+
+        fromDate = $('#fromDate').val().trim();
+        alert("fromDate=" + fromDate);
+        if(fromDate == "")
+            fromDate = "2013-01-01";  // set a default date if none is given
+
+
+
+        input1Val = $('#input1').val().trim();
+        if(input1Val == "") {
+            var state = $(this).attr('data-noInput1');
+            //alert("state=" + state);
+            if (state == 'on' )   {
+                //alert('Its on - turn it off');
+                $(this).attr('data-noInput1', 'off');
+                $('#TheGuardianDiv1').append('<br>');
+            } else {
+                //alert('Its off - turn it on');
+                $(this).attr('data-noInput1', 'on');
+                $('#TheGuardianDiv1').append('No search criteria entered for The Guardian !!!' + '<br>');
+            }
+            return;
+        }
+
+
+        $('#input1').val('');       // clear the input field after submit
+        $('#TheGuardianDiv1').append('Searching ...' + '<br>');
+         
+        //console.log("input1Val=" + input1Val);
+
+         
+        //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+        //var url = "https://content.guardianapis.com/search?q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+
+        //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+
+        //var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+        console.log("url=" + url);
+
+        var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=" + fromDate  + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+        console.log("url=" + url);
+        
+        var anArray = [];  
+
+     
+
+        $.ajax({
+                url: url,
+                method: 'GET'
+            })
+            .done(function(response) {   
+                $( "#TheGuardianDiv1" ).empty();
+
+                console.log(response.response);
+
+                for (var i = 0; i < response.response.results.length; i++) {
+                   var webTitle = response.response.results[i].webTitle;
+                    //console.log("webTitle=" + webTitle);
+
+                    anArray.push(  webTitle + " | ");
+                    $('#TheGuardianDiv1').append('&bull;&nbsp; ' +  webTitle + '<br>');
+                   // $('#NYTimesDiv2').append(webTitle + '<br>');
+                }
+
+                console.log('anArray=' + anArray);
+
+
+            });
+    }
+
+// -----------------------------------------------------------------------------------------------
+
+    function nyTimes(){
+
+            $( "#NYTimesDiv2" ).empty();
+
+         fromDate = $('#fromDate').val().trim();
+         alert("fromDate=" + fromDate);
+         fromDate = fromDate.replace(/-/g,"");
+        alert("fromDate=" + fromDate);
+        if(fromDate == "")
+            fromDate = "20130101";  // set a default date if none is given
+
+
+        input2Val = $('#input2').val().trim();
+
+        input2Val = input1Val;  //   Join the two searches
+
+        if(input2Val == "") {
+            var state = $(this).attr('data-noInput2');
+            //alert("state=" + state);
+            if (state == 'on' )   {
+                //alert('Its on - turn it off');
+                $(this).attr('data-noInput2', 'off');
+                $('#NYTimesDiv2').append('<br>');
+            } else {
+                //alert('Its off - turn it on');
+                $(this).attr('data-noInput2', 'on');
+                $('#NYTimesDiv2').append('No search criteria entered for The NY Times !!!' + '<br>');
+            }
+            return;
+        }
+
+        $('#input2').val('');       // clear the input field after submit
+        $('#NYTimesDiv2').append('Searching ...' + '<br>');
+         
+         
+        //var url = "https://content.guardianapis.com/search?api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+        //var url = "https://content.guardianapis.com/search?q=debate%20AND%20economy&tag=politics/politics&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+        //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
+
+         // Built by LucyBot. www.lucybot.com
+        var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+            url += '?' + $.param({
+            'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
+            'q': input2Val, 'begin_date':  fromDate
+            //'q': input2Val, 'begin_date': "20160101"
+            //'q': "\"hillary clinton\""
+         });
+
+        console.log("url=" + url);    
+        
+        var anArray = [];  
+     
+
+        $.ajax({
+                url: url,
+                method: 'GET'
+            })
+            .done(function(response) {   
+                $( "#NYTimesDiv2" ).empty();
+
+                console.log(response);
+
+                for (var i = 0; i < response.response.docs.length; i++) {
+                   var snippet = response.response.docs[i].snippet;
+                    //console.log("snippet=" + snippet);
+
+                    anArray.push(  snippet + " | ");
+                    
+                   $('#NYTimesDiv2').append('&bull;&nbsp; ' +  snippet + '<br>');
+                }
+
+                console.log('anArray=' + anArray);
+                 
+
+            });
+
+
+    }
+ 
+
+// -----------------------------------------------------------------------------------------------
+
+});  // on ready
+
+
+
+
+
+    </script>
+</body>
+
+</html>
