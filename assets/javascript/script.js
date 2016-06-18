@@ -1,5 +1,10 @@
 // API
 $(document).ready(function() {
+  // News ticker function
+  $(function(){
+   $("ul#ticker01").liScroll();
+  });
+
   var fromDate = "";
 
   $('#btn1').on('click', function() {
@@ -47,6 +52,13 @@ $(document).ready(function() {
   });
 
   $('#btn2').on('click', function() {
+    fromDate = $('#fromDate').val().trim();
+    alert("fromDate=" + fromDate);
+    fromDate = fromDate.replace(/-/g,"");
+    alert("fromDate=" + fromDate);
+    if (fromDate == "") {
+      fromDate = "20130101";
+    }
 
     var input2Val = $('#input2').val().trim();
 
@@ -69,7 +81,7 @@ $(document).ready(function() {
     var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
     url += '?' + $.param({
     'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
-    'q': input2Val
+    'q': input2Val, 'begin_date': fromDate
     });
 
     console.log("url=" + url);
@@ -175,7 +187,43 @@ function wordCount(s) {
       article2 = response.content;
       var dupeArr2 = wordCount(article2);
       var finalArticle2 = unique(dupeArr2);
-      WordCloud(document.getElementById('canvas2'), { list: finalArticle2 } );
+      WordCloud(document.getElementById('canvas2'), {list: finalArticle2});
       $('#canvas2').removeClass('hide');
     });
   });
+
+
+  // News ticker
+
+jQuery.fn.liScroll = function(settings) {
+    settings = jQuery.extend({
+    travelocity: 0.07
+    }, settings);   
+    return this.each(function(){
+        var $strip = jQuery(this);
+        $strip.addClass("newsticker")
+        var stripWidth = 1;
+        $strip.find("li").each(function(i){
+        stripWidth += jQuery(this, i).outerWidth(true); // thanks to Michael Haszprunar and Fabien Volpi
+        });
+        var $mask = $strip.wrap("<div class='mask'></div>");
+        var $tickercontainer = $strip.parent().wrap("<div class='tickercontainer'></div>");               
+        var containerWidth = $strip.parent().parent().width();  //a.k.a. 'mask' width   
+        $strip.width(stripWidth);     
+        var totalTravel = stripWidth+containerWidth;
+        var defTiming = totalTravel/settings.travelocity; // thanks to Scott Waye   
+        function scrollnews(spazio, tempo){
+        $strip.animate({left: '-='+ spazio}, tempo, "linear", function(){$strip.css("left", containerWidth); scrollnews(totalTravel, defTiming);});
+        }
+        scrollnews(totalTravel, defTiming);       
+        $strip.hover(function(){
+        jQuery(this).stop();
+        },
+        function(){
+        var offset = jQuery(this).offset();
+        var residualSpace = offset.left + stripWidth;
+        var residualTime = residualSpace/settings.travelocity;
+        scrollnews(residualSpace, residualTime);
+        });     
+    }); 
+};
