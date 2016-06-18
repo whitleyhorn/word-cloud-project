@@ -3,71 +3,71 @@
 
 <head>
 	<meta charset="utf-8">
-	<title>RBC_Project_One_Group9</title>
+	<title>NewsCloud</title>
   <!-- Bootstrap -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 	<link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+  <link href='https://fonts.googleapis.com/css?family=Cinzel:400,700' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Cormorant+Garamond' rel='stylesheet' type='text/css'>
 </head>
 
 <body>
 
-<div class="container">
-  <ul id="ticker01">
-    <li><span>10/10/2016</span><a href="#">Welcome to our News Word Cloud App...</a></li>
-    <li><span>10/10/2017</span><a href="#">The visual text representation technology...</a></li>
-    <li><span>10/10/2018</span><a href="#">Of the future!! ...</a></li>
-  </ul>
-
-  <div class="jumbotron jumbotron-narrow">
-    <h1 align="center">And Now This...</h1>
-    <h2 align="center">Trending News Word Clouds</h2>
-    <h2 align="center">Type in a phrase or word trending in the news to see how different news outlets cover the same event.</h2>
-  </div>
+<div class="container-fluid">
   <div class="row">
-    <div class="col-lg-6">
-      <div class="input-group">
-        <span class="input-group-btn">
-          <button class="btn btn-default" id='btn1' type="button">The Guardian API</button>
-        </span>
-        <input type="text" class="form-control" id="input1" placeholder="Search for..." id='search01'>
-      </div>
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <marquee class="generatedMarquee" direction="left" scrollamount="10" behavior="scroll">
+        <p>Welcome to NewsCloud, the first site to offer a visual representation of the bias inherent in news media. To get started, search for a topic, then simply click on the headline to display a word cloud of the article's content.</p>
+      </marquee>
     </div>
+  </div>
 
-    <div class="col-lg-6">
-      <div class="input-group">
-        <input type="text" class="form-control" id="input2" placeholder="Search for...">
-        <span class="input-group-btn">
-          <button class="btn btn-default" id='btn2' type="button">The NY Times API</button>
-        </span>
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="header">
+        <h1>NewsCloud</h1>
+        <div class="headerSubtext">
+          <h6>"The people will believe what the media tells them they believe." -George Orwell</h6>
+        </div>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-4 col-md-offset-4">
-        <form>
-          <div class="form-group date-form">
-            Search from date:
+  </div>
+
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+      <div class="searchArea">
+        <div class="dateDiv">
+          <p style="color: white">Choose date to search from:</p>
+          <form>
             <input type="date" class="form-control" id="fromDate" value="2012-01-01" placeholder="From Date(YYYYMMDD) ...">
-          </div>
-        </form>
+          </form>
+        </div>
+        <div class="topicDiv">
+          <p style="color: white">Choose a topic:</p>
+          <form>
+            <input type="text" class="form-control" id="input1" placeholder="Topic" id='search01'>
+            <button class="btn btn-default" id='btn1' type="button">Search</button>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-6 col-xs-6">
-        <div id="guardianDiv1" class="hide" data-noInput1='off'></div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div id="guardianDiv1" class="hide" data-noInput1='off'></div>
     </div>
 
-    <div class=".col-md-6 col-xs-6">
-        <div id="guardianDiv2" class="hide" data-noInput2='off'></div>
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
+      <div id="guardianDiv2" class="hide" data-noInput2='off'></div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <canvas id="canvas1" class="canvas hide" width="500px" height="500px"></canvas>
     </div>
-    <div class="col-md-6">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
       <canvas id="canvas2" class="canvas hide" width="500px" height="500px"></canvas>
     </div>
   </div>

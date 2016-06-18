@@ -1,3 +1,104 @@
+var theGuardian = function() {
+  fromDate = $('#fromDate').val().trim();
+  if(fromDate == "") {
+    fromDate = "2013-01-01";
+  }
+  input1Val = $('#input1').val().trim();
+  if(input1Val == "") {
+    var state = $(this).attr('data-noInput1');
+    if (state == 'on' ) {
+      $(this).attr('data-noInput1', 'off');
+      $('#guardianDiv1').append('<br>');
+    } else {
+      $(this).attr('data-noInput1', 'on');
+      $('#guardianDiv1').append('No search criteria entered for The Guardian !!!' + '<br>');
+    };
+    return;
+  }
+
+  $('#input1').val('');
+  $('#guardianDiv1').append('Searching ...' + '<br>');
+
+  var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=" + fromDate + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+
+  var anArray = [];
+
+  $.ajax({
+    url: url,
+    method: 'GET'
+  })
+  .done(function(response) {
+    $( "#guardianDiv1" ).empty();
+    $('#guardianDiv1').removeClass('hide');
+
+    console.log(response);
+
+    for (var i = 0; i < 9; i++) {
+      var guardianSnippet = response.response.results[i].webTitle;
+      var link = response.response.results[i].webUrl;
+      anArray.push(guardianSnippet + " | ");
+      $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + '&bull; ' + guardianSnippet + '</p><br>');
+    };
+    $('#guardianDiv1').prepend('<h1>The Guardian: </h1>')
+  });
+}
+
+var nyTimes = function() {
+fromDate = $('#fromDate').val().trim();
+alert("fromDate=" + fromDate);
+fromDate = fromDate.replace(/-/g,"");
+alert("fromDate=" + fromDate);
+if (fromDate == "") {
+  fromDate = "20130101";
+}
+
+input2Val = input1Val;
+
+if(input2Val == "") {
+  var state = $(this).attr('data-noInput2');
+  if (state == 'on' ) {
+    $(this).attr('data-noInput2', 'off');
+    $('#guardianDiv2').append('<br>');
+  } else {
+    $(this).attr('data-noInput2', 'on');
+    $('#guardianDiv2').append('No search criteria entered for The NY Times !!!' + '<br>');
+  };
+  return;
+}
+
+$('#input2').val('');
+$('#guardianDiv2').append('Searching ...' + '<br>');
+
+// Built by LucyBot. www.lucybot.com
+var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
+url += '?' + $.param({
+'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
+'q': input2Val, 'begin_date': fromDate
+});
+
+console.log("url=" + url);
+
+var anArray = [];
+
+$.ajax({
+  url: url,
+  method: 'GET'
+})
+.done(function(response) {
+  $('#guardianDiv2').empty();
+  $('#guardianDiv2').removeClass('hide');
+  console.log(response);
+
+  for (var i = 0; i < 9; i++) {
+    var nytSnippet = response.response.docs[i].headline.main;
+    var link = response.response.docs[i].web_url;
+    anArray.push(nytSnippet + " | ");
+    $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + '&bull; ' + nytSnippet + '</p><br>');
+  };
+  $('#guardianDiv2').prepend('<h1>The New York Times: </h1>')
+});
+}
+
 // API
 $(document).ready(function() {
   // News ticker function
@@ -5,105 +106,18 @@ $(document).ready(function() {
    $("ul#ticker01").liScroll();
   });
 
-  var fromDate = "";
+  var fromDate = '';
+  var input1Val = '';
+  var input2Val = '';
+
 
   $('#btn1').on('click', function() {
-    fromDate = $('#fromDate').val().trim();
-    if(fromDate == "") {
-      fromDate = "2013-01-01";
-    }
-    var input1Val = $('#input1').val().trim();
-    if(input1Val == "") {
-      var state = $(this).attr('data-noInput1');
-      if (state == 'on' ) {
-        $(this).attr('data-noInput1', 'off');
-        $('#guardianDiv1').append('<br>');
-      } else {
-        $(this).attr('data-noInput1', 'on');
-        $('#guardianDiv1').append('No search criteria entered for The Guardian !!!' + '<br>');
-      };
-      return;
-    }
-
-    $('#input1').val('');
-    $('#guardianDiv1').append('Searching ...' + '<br>');
-
-    var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=" + fromDate + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
-    
-    var anArray = [];
-
-    $.ajax({
-      url: url,
-      method: 'GET'
-    })
-    .done(function(response) {
-      $( "#guardianDiv1" ).empty();
-      $('#guardianDiv1').removeClass('hide');
-
-      console.log(response);
-
-      for (var i = 0; i < 9; i++) {
-        var guardianSnippet = response.response.results[i].webTitle;
-        var link = response.response.results[i].webUrl;
-        anArray.push(guardianSnippet + " | ");
-        $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + guardianSnippet + '</p><br>');
-      }
-    });
+    theGuardian();
+    nyTimes();
   });
 
   $('#btn2').on('click', function() {
-    fromDate = $('#fromDate').val().trim();
-    alert("fromDate=" + fromDate);
-    fromDate = fromDate.replace(/-/g,"");
-    alert("fromDate=" + fromDate);
-    if (fromDate == "") {
-      fromDate = "20130101";
-    }
-
-    var input2Val = $('#input2').val().trim();
-
-    if(input2Val == "") {
-      var state = $(this).attr('data-noInput2');
-      if (state == 'on' ) {
-        $(this).attr('data-noInput2', 'off');
-        $('#guardianDiv2').append('<br>');
-      } else {
-        $(this).attr('data-noInput2', 'on');
-        $('#guardianDiv2').append('No search criteria entered for The NY Times !!!' + '<br>');
-      };
-      return;
-    }
-
-    $('#input2').val('');
-    $('#guardianDiv2').append('Searching ...' + '<br>');
-
-    // Built by LucyBot. www.lucybot.com
-    var url = "https://api.nytimes.com/svc/search/v2/articlesearch.json";
-    url += '?' + $.param({
-    'api-key': "d75094cd314e4d3bb72232a3c0b82e00",
-    'q': input2Val, 'begin_date': fromDate
-    });
-
-    console.log("url=" + url);
-
-    var anArray = [];
-
-    $.ajax({
-      url: url,
-      method: 'GET'
-    })
-    .done(function(response) {
-      $('#guardianDiv2').empty();
-      $('#guardianDiv2').removeClass('hide');
-      console.log(response);
-
-      for (var i = 0; i < response.response.docs.length; i++) {
-        var nytSnippet = response.response.docs[i].headline.main;
-        var link = response.response.docs[i].web_url;
-        anArray.push(nytSnippet + " | ");
-        $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + nytSnippet + '</p><br>');
-      }
-    });
+    nyTimes();
   });
 });
 
@@ -111,7 +125,7 @@ $(document).ready(function() {
 
 
 // WORD CLOUD
-var skipWords = ['the','of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they','I','at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part', 'href', '<p>', '</p>', '<a'];
+var skipWords = ['the', 'The', 'of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they','I','at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part', 'href', '<p>', '</p>', '<a'];
 
 function unique(list) {
   var result = [];
