@@ -1,5 +1,9 @@
 <html>
-<!-- tk 2016 06 16 - copyright Thom. Keel 2016 - project1 - test api'sfs -->
+<!-- tk 2016 06 16 - copyright Thom. Keel 2016 - project1 - test api'sfs 
+http://digitalbush.com/projects/masked-input-plugin/ 
+https://raw.githubusercontent.com/digitalBush/jquery.maskedinput/1.4.1/dist/jquery.maskedinput.min.js
+2016 06 16 - add date input field
+-->
 
 <head>
     <title>The Guardian/NY Times API</title>
@@ -8,6 +12,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
     <script src='http://code.jquery.com/jquery-2.1.3.min.js'></script>
+   
     <style type="text/css">
         
     </style>
@@ -21,6 +26,7 @@
             <h1>Project 01 - Test API's!</h1>
 
             <!-- <div class="col-lg-12  col-md-12 text-center">&copy; Thom Keel 2016</div> -->
+ 
       
             <div class="row">
               <div class="col-lg-6 col-md-6">
@@ -42,11 +48,33 @@
               </div><!-- /.col-lg-6 -->
             </div><!-- /.row -->
 
-       
-        </div>
-    </div> 
 
-    
+
+        <div class="row">
+            <div class="col-lg-5 col-md-5">
+            </div>
+
+            <div class="col-lg-3 col-md-3">
+                <form>
+                    <div class="form-group">
+                     Search from date: 
+                            <input type="date" class="form-control" id="fromDate" value="2012-01-01" placeholder="From Date(YYYYMMDD) ...">
+                    </label>
+                    </div>
+                </form>
+            </div><!-- /.col-lg-2 -->
+
+            <div class="col-lg-4   col-md-4">
+            </div><!-- /.col-lg-5 -->
+        </div><!-- /.row -->
+
+
+
+        </div>
+    </div>    
+ 
+
+        
     
 
     <div class="container-fluid">
@@ -71,12 +99,21 @@
 
 $( document ).ready(function() {
     //console.log( "ready!" );
-    //console.log("search01" + #search01);
+    //console.log("Date01" + #search01);
+
+     var fromDate = "";
 
 
     $('#btn1').on('click', function() {
 
         $( "#TheGuardianDiv1" ).empty();
+
+
+        fromDate = $('#fromDate').val().trim();
+        alert("fromDate=" + fromDate);
+        if(fromDate == "")
+            fromDate = "2013-01-01";  // set a default date if none is given
+
 
 
         var input1Val = $('#input1').val().trim();
@@ -107,7 +144,10 @@ $( document ).ready(function() {
 
         //var url = "https://content.guardianapis.com/search?q=donald%20AND%20trump&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186";
 
-        var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+        //var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=2014-01-01&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
+        console.log("url=" + url);
+
+        var url = ("https://content.guardianapis.com/search?q=" + input1Val + "&from-date=" + fromDate  + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
         console.log("url=" + url);
         
         var anArray = [];  
@@ -204,7 +244,14 @@ $( document ).ready(function() {
     });
 
 
+ 
+
 });  // on ready
+
+
+
+
+
     </script>
 </body>
 
