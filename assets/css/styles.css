@@ -61,3 +61,7 @@ body {
 .hide {
   display: none;
 }
+
+.date-form {
+  margin-top: 20px;
+}
