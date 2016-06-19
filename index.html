@@ -45,9 +45,12 @@
         <div class="topicDiv">
           <p style="color: white">Choose a topic:</p>
           <form>
-            <input type="text" class="form-control" id="input1" placeholder="Topic" id='search01'>
+            <input type="text" class="form-control" id="topicInput" placeholder="Topic" id='search01'>
             <button class="btn btn-default" id='btn1' type="button">Search</button>
           </form>
+        </div>
+        <div class="noSearch hide">
+          <h2>No search criteria entered!</h2>
         </div>
       </div>
     </div>
@@ -55,20 +58,24 @@
 
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <div id="guardianDiv1" class="hide" data-noInput1='off'></div>
+      <div id="guardianDiv1" class="hide"></div>
     </div>
 
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <div id="guardianDiv2" class="hide" data-noInput2='off'></div>
+      <div id="guardianDiv2" class="hide"></div>
     </div>
   </div>
 
   <div class="row">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <canvas id="canvas1" class="canvas hide" width="500px" height="500px"></canvas>
+      <div class="canvasCover">
+        <canvas id="canvas1" class="canvas hide" width="500px" height="500px"></canvas>
+      </div>
     </div>
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6">
-      <canvas id="canvas2" class="canvas hide" width="500px" height="500px"></canvas>
+      <div class="canvasCover">
+        <canvas id="canvas2" class="canvas hide" width="500px" height="500px"></canvas>
+      </div>
     </div>
   </div>
 </div>

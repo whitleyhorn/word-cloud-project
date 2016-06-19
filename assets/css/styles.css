@@ -29,6 +29,19 @@ h1 {
   text-align: center;
 }
 
+.noSearch {
+  height: 70px;
+  background-color: #000;
+  color: red;
+  width: 70%;
+  margin: 0 auto;
+}
+
+.noSearch h2 {
+  font-size: 2em;
+  padding: 15px;
+}
+
 h6 {
   font-family: 'Cormorant';
   font-size: 1em;
@@ -114,6 +127,10 @@ h6 {
   margin-top: 1em;
 }
 
+.canvasCover {
+  background-color: black;
+  text-align: center;
+}
 
 
 /*Marquee*/
