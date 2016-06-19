@@ -1,3 +1,5 @@
+var clickSound = new Audio("assets/sounds/click_sound.mp3")
+
 // API
 $(document).ready(function() {
   var fromDate = '';
@@ -5,6 +7,7 @@ $(document).ready(function() {
 
   $('#btn1').on('click', function() {
     // Guardian
+
     fromDate = $('#fromDate').val().trim();
 
     topic = $('#topicInput').val().trim();
@@ -127,6 +130,7 @@ function wordCount(s) {
 
 
   $(document).on('click', '#guardianSnippet', function() {
+    clickSound.play();
     guardianArticleURL = $(this).attr('data-alt');
     $.getJSON('https://api.embedly.com/1/extract?' + $.param({
       url: guardianArticleURL,
@@ -149,6 +153,7 @@ function wordCount(s) {
 
 
   $(document).on('click', '#nytSnippet', function() {
+    clickSound.play();
     nytArticleURL = $(this).attr('data-alt');
     $.getJSON('https://api.embedly.com/1/extract?' + $.param({
       url: nytArticleURL,
