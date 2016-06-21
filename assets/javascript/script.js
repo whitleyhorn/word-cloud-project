@@ -28,6 +28,14 @@ $(document).ready(function() {
   $('#scrollingQuote').html(quoteArray[quoteNumber]);
   myFunction();
 
+  $(document).keydown(function(e) {
+    var key = e.which;
+    if (key == 13) {
+      $('#btn1').click();
+      return false;
+    }
+  });
+
 
   $('#btn1').on('click', function() {
     // Guardian
@@ -35,6 +43,7 @@ $(document).ready(function() {
     fromDate = $('#fromDate').val().trim();
 
     topic = $('#topicInput').val().trim();
+
     if(topic == "") {
       $('.noSearch').removeClass('hide');
       function blink() {
@@ -45,7 +54,7 @@ $(document).ready(function() {
       return;
     };
 
-    $('#input1').val('');
+    $('#topicInput').val('');
 
     var url = ("https://content.guardianapis.com/search?q=" + topic + "&from-date=" + fromDate + "&api-key=adcd1e3d-5fa2-401b-b6f3-aefcd666d186");
 
