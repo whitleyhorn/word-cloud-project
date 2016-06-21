@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "DJB";
+    src: url('../fonts/DJB Friday Night Lights.ttf');
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -80,6 +85,7 @@ h6 {
   height: 40em;
   color: #fff;
   margin-top: 3em;
+  position: relative;
 }
 
 #guardianDiv1 h1, #guardianDiv2 h1 {
@@ -136,8 +142,8 @@ h6 {
 /*Marquee*/
 
 .generatedMarquee {
-  font-family: url('../fonts/DJB Friday Night Lights.ttf');
-  font-size: 1.3em;
+  font-family: "DJB";
+  font-size: 1em;
   line-height: 0.6em;
   color: rgb(254, 230, 120);
   background-color: #000;
