@@ -1,32 +1,44 @@
 var clickSound = new Audio("assets/sounds/click_sound.mp3")
-var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind" -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '“It doesn\'t matter if justice is on your side. You have to depict your position as just.” -Benjamin Netanyahu', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels'
-]
+var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind." -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '“It doesn\'t matter if justice is on your side. You have to depict your position as just.” -Benjamin Netanyahu', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels']
+var quoteNumber = 1;
 
 
 // API
 $(document).ready(function() {
   var fromDate = '';
   var topic = '';
-  var quoteNumber = 0;
 
   var intervalID;
 
-  function myFunction() {
+  function quoteFunction() {
     intervalID = setInterval(changeQuote, 10 * 1000);
   };
 
   var changeQuote = function() {
-    if (quoteNumber < 7) {
-      quoteNumber++;
-      $('#scrollingQuote').html(quoteArray[quoteNumber]);
-    } else {
+    if (quoteNumber == 0) {
+      $('#scrollingQuote').html('<p style="font-family: \'Merriweather\', serif;">' + quoteArray[0] + '</p>');
+    } else if (quoteNumber == 1) {
+      $('#scrollingQuote').html('<p style="font-family: \'Titillium Web\', sans-serif;">' + quoteArray[1] + '</p>');
+    } else if (quoteNumber == 2) {
+      $('#scrollingQuote').html('<p style="font-family: \'Libre Baskerville\', serif;">' + quoteArray[2] + '</p>');
+    } else if (quoteNumber == 3) {
+      $('#scrollingQuote').html('<p style="font-family: \'Libre Franklin\', sans-serif;">' + quoteArray[3] + '</p>');
+    } else if (quoteNumber == 4) {
+      $('#scrollingQuote').html('<p style="font-family: \'Prompt\', sans-serif;">' + quoteArray[4] + '</p>');
+    } else if (quoteNumber == 5) {
+      $('#scrollingQuote').html('<p style="font-family: \'Amiri\', serif;">' + quoteArray[5] + '</p>');
+    } else if (quoteNumber == 6) {
+      $('#scrollingQuote').html('<p style="font-family: \'Taviraj\', serif;">' + quoteArray[6] + '</p>');
+    } else if (quoteNumber == 7) {
+      $('#scrollingQuote').html('<p style="font-family: Times New Roman">' + quoteArray[7] + '</p>');
+    } else if (quoteNumber > 7 ) {
       quoteNumber = 0;
-      $('#scrollingQuote').html(quoteArray[quoteNumber]);
     };
+    quoteNumber++;
   };
 
-  $('#scrollingQuote').html(quoteArray[quoteNumber]);
-  myFunction();
+  $('#scrollingQuote').html('<p style="font-family: Times New Roman">' + quoteArray[0] + '</p>');
+  quoteFunction();
 
   $(document).keydown(function(e) {
     var key = e.which;
