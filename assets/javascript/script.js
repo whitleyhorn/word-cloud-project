@@ -89,7 +89,7 @@ $(document).ready(function() {
         var guardianSnippet = response.response.results[i].webTitle;
         var link = response.response.results[i].webUrl;
         anArray.push(guardianSnippet + " | ");
-        $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + '&bull; ' + guardianSnippet + '</p><br>');
+        $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + '&bull; ' + guardianSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
       };
       $('#guardianDiv1').prepend('<h1>The Guardian: </h1>')
     });
@@ -120,7 +120,7 @@ $(document).ready(function() {
         var nytSnippet = response.response.docs[i].headline.main;
         var link = response.response.docs[i].web_url;
         anArray2.push(nytSnippet + " | ");
-        $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + '&bull; ' + nytSnippet + '</p><br>');
+        $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + '&bull; ' + nytSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
       };
       $('#guardianDiv2').prepend('<h1>The New York Times: </h1>')
     });
