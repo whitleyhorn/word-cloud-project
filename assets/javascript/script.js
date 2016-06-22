@@ -1,10 +1,13 @@
 var clickSound = new Audio("assets/sounds/click_sound.mp3")
-var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind." -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '“It doesn\'t matter if justice is on your side. You have to depict your position as just.” -Benjamin Netanyahu', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels']
+var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind." -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '"All I know is just what I read in the papers, and that\'s an alibi for my ignorance." - Will Rogers', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels']
 var quoteNumber = 1;
+
+var searchData = new Firebase("https://newscloud.firebaseio.com/");
 
 
 // API
 $(document).ready(function() {
+
   var fromDate = '';
   var topic = '';
 
