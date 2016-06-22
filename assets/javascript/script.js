@@ -37,7 +37,7 @@ $(document).ready(function() {
     quoteNumber++;
   };
 
-  $('#scrollingQuote').html('<p style="font-family: Times New Roman">' + quoteArray[0] + '</p>');
+  $('#scrollingQuote').html('<p style="font-family: \'Merriweather\', serif;">' + quoteArray[0] + '</p>');
   quoteFunction();
 
   $(document).keydown(function(e) {
