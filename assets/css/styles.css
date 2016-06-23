@@ -157,11 +157,26 @@ h6 {
   font-family: 'Cantarell';
 }
 
+svg {
+  height: 25%;
+  width: 25%;
+}
+path {
+  fill: white;
+  stroke: black;
+  stroke-width: 2;
+  stroke-linejoin: round;
+}
+.cloudInfo{
+  font-family: 'Times New Roman';
+  font-size: 14px;
+}
+
 /*Marquee*/
 
 .generatedMarquee {
   font-family: "DJB";
-  font-size: 1em;
+  font-size: 1.2em;
   line-height: 0.6em;
   color: rgb(254, 230, 120);
   background-color: #000;
