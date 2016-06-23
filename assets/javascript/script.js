@@ -59,14 +59,18 @@ $(document).ready(function() {
 
     topic = $('#topicInput').val().trim();
 
+
     if(topic == "") {
       $('.noSearch').removeClass('hide');
-      function blink() {
-        $('.noSearch').fadeOut(500).fadeIn(500, blink);
+      function blink2() {
+        $('.noSearch').fadeOut(500).fadeIn(500, blink2);
       };
-      blink();
+      blink2();
       setTimeout(function(){ $('.noSearch').addClass('hide'); }, 3000);
       return;
+    } else {
+      $('.searchArea').addClass('hide');
+      $('.searchAgainDiv').removeClass('hide');
     };
 
     $('#topicInput').val('');
@@ -85,7 +89,7 @@ $(document).ready(function() {
 
       console.log(response);
 
-      for (var i = 0; i < 9; i++) {
+      for (var i = 0; i < 7; i++) {
         var guardianSnippet = response.response.results[i].webTitle;
         var link = response.response.results[i].webUrl;
         anArray.push(guardianSnippet + " | ");
@@ -116,7 +120,7 @@ $(document).ready(function() {
       $('#guardianDiv2').removeClass('hide');
       console.log(response);
 
-      for (var i = 0; i < 9; i++) {
+      for (var i = 0; i < 7; i++) {
         var nytSnippet = response.response.docs[i].headline.main;
         var link = response.response.docs[i].web_url;
         anArray2.push(nytSnippet + " | ");
@@ -127,8 +131,10 @@ $(document).ready(function() {
   });
 });
 
-
-
+$('#searchAgainP').on('click', function() {
+  $('.searchAgainDiv').addClass('hide');
+  $('.searchArea').removeClass('hide');
+})
 
 
 // WORD CLOUD
@@ -189,7 +195,7 @@ function wordCount(s) {
       console.log(response);
       var dupeArr1 = wordCount(article1);
       var finalArticle1 = unique(dupeArr1);
-      WordCloud(document.getElementById('canvas1'), { list: finalArticle1 } );
+      WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: finalArticle1 } );
       $('#canvas1').removeClass('hide');
     });
   });
@@ -211,7 +217,7 @@ function wordCount(s) {
       article2 = response.content;
       var dupeArr2 = wordCount(article2);
       var finalArticle2 = unique(dupeArr2);
-      WordCloud(document.getElementById('canvas2'), {list: finalArticle2});
+      WordCloud(document.getElementById('canvas2'), {color: 'random-dark', list: finalArticle2});
       $('#canvas2').removeClass('hide');
     });
   });

@@ -38,13 +38,28 @@ h1 {
   height: 70px;
   background-color: #000;
   color: red;
-  width: 70%;
+  width: 30%;
   margin: 0 auto;
+  text-align: center;
 }
 
 .noSearch h2 {
-  font-size: 2em;
+  font-size: 1.8em;
   padding: 15px;
+}
+
+.searchAgainDiv {
+  color: white;
+  background-color: black;
+  width: 30%;
+  height: 2em;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.searchAgainDiv p {
+  padding-top: 0.2em;
+  color: red;
 }
 
 h6 {
@@ -82,9 +97,9 @@ h6 {
 
 #guardianDiv1, #guardianDiv2 {
   background-color: #000;
-  height: 40em;
+  height: 31em;
   color: #fff;
-  margin-top: 3em;
+  margin-top: 1em;
   position: relative;
 }
 
@@ -96,11 +111,11 @@ h6 {
 }
 
 #guardianDiv1 p, #guardianDiv2 p {
-  padding-left: 4em;
+  padding-left: 2em;
 }
 
 #guardianDiv1 p:first-child, #guardianDiv2 p:first-child {
-  padding-top: 1em;
+  padding-top: .3em;
 }
 
 .hide {
