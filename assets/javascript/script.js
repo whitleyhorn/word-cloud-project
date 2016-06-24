@@ -4,10 +4,10 @@ var quoteNumber = 1;
 
 var searchData = new Firebase("https://newscloud.firebaseio.com/");
 
+var wordCloudsLoaded = 0;
 
 // API
 $(document).ready(function() {
-
   var fromDate = '';
   var topic = '';
 
@@ -202,7 +202,9 @@ function wordCount(s) {
       WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: finalArticle1 } );
       $('#canvas1').removeClass('hide');
     });
-    $('#cloud').removeClass('hide');
+    if (wordCloudsLoaded < 1) {
+      $('#cloud').removeClass('hide');
+    };
   });
   
 
@@ -212,7 +214,7 @@ function wordCount(s) {
 
 
   $(document).on('click', '#nytSnippet', function() {
-    $('#cloud').removeClass('hide');
+    wordCloudsLoaded++;
     clickSound.play();
     nytArticleURL = $(this).attr('data-alt');
     $.getJSON('https://api.embedly.com/1/extract?' + $.param({
@@ -226,4 +228,7 @@ function wordCount(s) {
       WordCloud(document.getElementById('canvas2'), {color: 'random-dark', list: finalArticle2});
       $('#canvas2').removeClass('hide');
     });
+    if (wordCloudsLoaded < 1) {
+      $('#cloud').removeClass('hide');
+    };
   });
