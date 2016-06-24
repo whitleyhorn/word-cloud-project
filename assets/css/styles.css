@@ -172,6 +172,16 @@ path {
   font-size: 14px;
 }
 
+#cloud {
+  position: relative;
+  left: 30em;
+  bottom: 45em;
+}
+
+#xIcon {
+  font-family: FontAwesome;
+  font-size: 75%;
+}
 /*Marquee*/
 
 .generatedMarquee {

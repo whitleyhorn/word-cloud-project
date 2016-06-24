@@ -136,6 +136,10 @@ $('#searchAgainP').on('click', function() {
   $('.searchArea').removeClass('hide');
 })
 
+$('#xIcon').on('click', function() {
+  $('#cloud').addClass('hide');
+})
+
 
 // WORD CLOUD
 var skipWords = ['the', 'A', 'The', 'said', 'should','let\'s', 'of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they', 'at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part', 'href', '<p>', '</p>', '<a', 'It', 'it\s', 'Mr.', 'Mrs.', '+', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''];
@@ -198,6 +202,7 @@ function wordCount(s) {
       WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: finalArticle1 } );
       $('#canvas1').removeClass('hide');
     });
+    $('#cloud').removeClass('hide');
   });
   
 
@@ -207,6 +212,7 @@ function wordCount(s) {
 
 
   $(document).on('click', '#nytSnippet', function() {
+    $('#cloud').removeClass('hide');
     clickSound.play();
     nytArticleURL = $(this).attr('data-alt');
     $.getJSON('https://api.embedly.com/1/extract?' + $.param({
