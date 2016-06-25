@@ -2,9 +2,9 @@ var clickSound = new Audio("assets/sounds/click_sound.mp3")
 var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind." -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '"All I know is just what I read in the papers, and that\'s an alibi for my ignorance." - Will Rogers', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels']
 var quoteNumber = 1;
 
-var searchData = new Firebase("https://newscloud.firebaseio.com/");
-
 var wordCloudsLoaded = 0;
+
+var searchNum = 0;
 
 // API
 $(document).ready(function() {
@@ -188,6 +188,7 @@ function wordCount(s) {
 
 
   $(document).on('click', '#guardianSnippet', function() {
+    wordCloudsLoaded++;
     clickSound.play();
     guardianArticleURL = $(this).attr('data-alt');
     $.getJSON('https://api.embedly.com/1/extract?' + $.param({
@@ -201,10 +202,10 @@ function wordCount(s) {
       var finalArticle1 = unique(dupeArr1);
       WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: finalArticle1 } );
       $('#canvas1').removeClass('hide');
+      if (wordCloudsLoaded == 1) {
+        $('#cloud').removeClass('hide');
+      };
     });
-    if (wordCloudsLoaded < 1) {
-      $('#cloud').removeClass('hide');
-    };
   });
   
 
@@ -227,8 +228,8 @@ function wordCount(s) {
       var finalArticle2 = unique(dupeArr2);
       WordCloud(document.getElementById('canvas2'), {color: 'random-dark', list: finalArticle2});
       $('#canvas2').removeClass('hide');
+      if (wordCloudsLoaded == 1) {
+        $('#cloud').removeClass('hide');
+      };
     });
-    if (wordCloudsLoaded < 1) {
-      $('#cloud').removeClass('hide');
-    };
   });
