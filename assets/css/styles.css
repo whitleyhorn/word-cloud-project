@@ -95,7 +95,7 @@ h6 {
   margin: 1em;
 }
 
-#guardianDiv1, #guardianDiv2 {
+#guardianDiv, #nytDiv {
   background-color: #000;
   height: 31em;
   color: #fff;
@@ -103,18 +103,18 @@ h6 {
   position: relative;
 }
 
-#guardianDiv1 h1, #guardianDiv2 h1 {
+#guardianDiv h1, #nytDiv h1 {
   color: white;
   font-size: 2em;
   font-family: "Times New Roman";
   margin: 1em;
 }
 
-#guardianDiv1 p, #guardianDiv2 p {
+#guardianDiv p, #nytDiv p {
   padding-left: 2em;
 }
 
-#guardianDiv1 p:first-child, #guardianDiv2 p:first-child {
+#guardianDiv p:first-child, #nytDiv p:first-child {
   padding-top: .3em;
 }
 

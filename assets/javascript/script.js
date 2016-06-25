@@ -1,22 +1,31 @@
+// Group Project 1: The NewsCloud
+// Team members: Nancy Lukas, Whitley Horn, Tom Keel
+// Presentation Date: June 25, 2016
+
+
+
+// Sound to play when user clicks headline
 var clickSound = new Audio("assets/sounds/click_sound.mp3")
+
+// Array of quotes about media to be displayed on the screen
 var quoteArray = ['"The people will believe what the media tells them they believe." -George Orwell', '"A nation of sheep will beget a government of wolves." ―Edward R. Murrow', '"Whoever controls the media, controls the mind." -Jim Morrison', '"If everything is amplified, we hear nothing." -Jon Stewart', '“Manipulating the media is akin to poisoning a nation’s water supply – it affects all of our lives in unimaginable ways.” -Lance Morcan', '“Until you realize how easily it is for your mind to be manipulated, you remain the puppet of someone else\'s game." -Evita Ochel', '"All I know is just what I read in the papers, and that\'s an alibi for my ignorance." - Will Rogers', '"Think of the press as a great keyboard on which the government can play." -Joseph Goebbels']
 var quoteNumber = 1;
+
 
 var wordCloudsLoaded = 0;
 
 var searchNum = 0;
 
-// API
 $(document).ready(function() {
   var fromDate = '';
   var topic = '';
-
   var intervalID;
 
   function quoteFunction() {
     intervalID = setInterval(changeQuote, 10 * 1000);
   };
 
+// New font for each new quote
   var changeQuote = function() {
     if (quoteNumber == 0) {
       $('#scrollingQuote').html('<p style="font-family: \'Merriweather\', serif;">' + quoteArray[0] + '</p>');
@@ -40,9 +49,11 @@ $(document).ready(function() {
     quoteNumber++;
   };
 
+  // Show first quote on document ready, then begin changing them
   $('#scrollingQuote').html('<p style="font-family: \'Merriweather\', serif;">' + quoteArray[0] + '</p>');
   quoteFunction();
 
+  // Enter key activates button 1 onClick function
   $(document).keydown(function(e) {
     var key = e.which;
     if (key == 13) {
@@ -52,14 +63,16 @@ $(document).ready(function() {
   });
 
 
-  $('#btn1').on('click', function() {
-    // Guardian
 
+// When "search" is clicked..
+  $('#btn1').on('click', function() {
+
+    // Store date to search from and search term
     fromDate = $('#fromDate').val().trim();
 
     topic = $('#topicInput').val().trim();
 
-
+    // If no search term entered, alert user; else, hide search box
     if(topic == "") {
       $('.noSearch').removeClass('hide');
       function blink2() {
@@ -84,8 +97,8 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
-      $( "#guardianDiv1" ).empty();
-      $('#guardianDiv1').removeClass('hide');
+      $('#guardianDiv').empty();
+      $('#guardianDiv').removeClass('hide');
 
       console.log(response);
 
@@ -93,11 +106,13 @@ $(document).ready(function() {
         var guardianSnippet = response.response.results[i].webTitle;
         var link = response.response.results[i].webUrl;
         anArray.push(guardianSnippet + " | ");
-        $('#guardianDiv1').append('<p id="guardianSnippet" data-alt="' + link + '">' + '&bull; ' + guardianSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
+        // Populate div with Guardian headlines & URL; store article URL as data-alt
+        $('#guardianDiv').append('<p id="guardianSnippet" data-alt="' + link + '">' + '&bull; ' + guardianSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
       };
-      $('#guardianDiv1').prepend('<h1>The Guardian: </h1>')
+      $('#guardianDiv').prepend('<h1>The Guardian: </h1>')
     });
     // NY Times
+    // Format fromDate for NY Times API (thanks Tom)
     fromDate = fromDate.replace(/-/g,"");
     if (fromDate == "") {
       fromDate = "20130101";
@@ -116,17 +131,18 @@ $(document).ready(function() {
       method: 'GET'
     })
     .done(function(response) {
-      $('#guardianDiv2').empty();
-      $('#guardianDiv2').removeClass('hide');
+      $('#nytDiv').empty();
+      $('#nytDiv').removeClass('hide');
       console.log(response);
 
       for (var i = 0; i < 7; i++) {
         var nytSnippet = response.response.docs[i].headline.main;
         var link = response.response.docs[i].web_url;
         anArray2.push(nytSnippet + " | ");
-        $('#guardianDiv2').append('<p id="nytSnippet" data-alt="' + link + '">' + '&bull; ' + nytSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
+        // Populate div with NYTimes headlines & URL; store article URL as data-alt
+        $('#nytDiv').append('<p id="nytSnippet" data-alt="' + link + '">' + '&bull; ' + nytSnippet + ' ' + '<a href="' + link + '" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></p><br>');
       };
-      $('#guardianDiv2').prepend('<h1>The New York Times: </h1>')
+      $('#nytDiv').prepend('<h1>The New York Times: </h1>')
     });
   });
 });
@@ -136,6 +152,7 @@ $('#searchAgainP').on('click', function() {
   $('.searchArea').removeClass('hide');
 })
 
+// X out of instruction cloud
 $('#xIcon').on('click', function() {
   $('#cloud').addClass('hide');
 })
@@ -144,45 +161,38 @@ $('#xIcon').on('click', function() {
 // WORD CLOUD
 var skipWords = ['the', 'A', 'The', 'said', 'should','let\'s', 'of','and','a','to','in','is','you','that','it','he','was','for','on','are','as','with','his','they', 'at','be','this','have','from','or','one','had','by','word','but','not','what','all','were','we','when','your','can','there','use','an','each','which','she','do','how','their','if','will','up','other','about','out','many','then','them','these','so','some','her','would','make','like','him','into','time','has','look','two','more','go','see','no','way','could','my','than','been','call','who','its','now','long','down','day','did','get','come','may','part', 'href', '<p>', '</p>', '<a', 'It', 'it\'s', 'Mr.', 'Mrs.', '+', '1', '2', '3', '4', '5', '6', '7', '8', '9', '0', ''];
 
-function unique(list) {
-  var result = [];
-  $.each(list, function(i, e) {
-    if ($.inArray(e, result) == -1) result.push(e);
-  });
-  return result;
-};
 
+// Pass in article text, return array of words used and frequency of each word
 function wordCount(s) {
   var wordArray = s.split(' ');
   var countArray = [];
   for (var i=0; i < wordArray.length; i++) {
     var x = wordArray[i];
     var xCount = 0;
-//  loop through wordArray, incrementing count each time x == the current word
+    // Loop through wordArray, incrementing count each time x == the current word
     for (var j=0; j < wordArray.length; j++) {
       if (wordArray[j] == x) {
         xCount++;
       };
     };
+    // Filter out words that aren't useful for wordcloud, image URLs, etc.
     if (skipWords.indexOf(x) < 0 && x.length < 12 && x.length > 2 && x.indexOf('&') < 0 && x.indexOf('"') < 0 && x.indexOf('<') < 0 && x.indexOf('>') < 0) {
       countArray.push([x, xCount * 10]);
     };
   };
-  
+  // Prevent function from returning duplicate arrays -- thanks http://stackoverflow.com/a/26261010
   var hash = {};
   var out = [];
-  for (var i = 0, l = countArray.length; i < l; i++) {
+  for (var i = 0; i < countArray.length; i++) {
     var key = countArray[i].join('|');
     if (!hash[key]) {
       out.push(countArray[i]);
       hash[key] = 'found';
     }
-  }
+  };
   return out;
 }
 
-
-  // Guardian headline on click
   var guardianArticleURL = '';
   var article1 = '';
 
@@ -198,9 +208,9 @@ function wordCount(s) {
     .done(function(response) {
       article1 = response.content;
       console.log(response);
-      var dupeArr1 = wordCount(article1);
-      var finalArticle1 = unique(dupeArr1);
-      WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: finalArticle1 } );
+      var cloudArr1 = wordCount(article1);
+      // Generate word cloud in canvas
+      WordCloud(document.getElementById('canvas1'), {color: 'random-dark', list: cloudArr1 } );
       $('#canvas1').removeClass('hide');
       if (wordCloudsLoaded == 1) {
         $('#cloud').removeClass('hide');
@@ -224,9 +234,9 @@ function wordCount(s) {
     }))
     .done(function(response) {
       article2 = response.content;
-      var dupeArr2 = wordCount(article2);
-      var finalArticle2 = unique(dupeArr2);
-      WordCloud(document.getElementById('canvas2'), {color: 'random-dark', list: finalArticle2});
+      var cloudArr2 = wordCount(article2);
+      // Generate word cloud in canvas
+      WordCloud(document.getElementById('canvas2'), {color: 'random-dark', list: cloudArr2});
       $('#canvas2').removeClass('hide');
       if (wordCloudsLoaded == 1) {
         $('#cloud').removeClass('hide');
